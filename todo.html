@@ -1,0 +1,82 @@
+<body>
+  <CENTER><h1>SCHEDULE MARKER</h1></CENTER>
+  <div class="gridinput">
+  <input placeholder="ENTER YOUR TODOS" class="todoinput nameinput">
+   <input type="date" class="dates dueinput">
+  <button onclick="todoupdate()" class="addbut">ADD</button>
+</div>
+  <div class="todolistitems todogrid"></div>
+  <style>
+    body{
+      font-family: Arial;
+    }
+    .todogrid,.gridinput{
+      display:grid;
+      grid-template-columns: 200px 150px 100px;
+      column-gap: 10px;
+      row-gap: 10px;
+      align-items: center;
+    }
+    .gridinput{
+      margin-bottom: 10px;
+    }
+    .nameinput,.dueinput{
+      font-size: 15px;
+      padding: 6px; 
+    }
+    .addbut{
+      background-color: green;
+      color: white;
+      cursor: pointer;
+      border: none;
+      padding: 10px;
+      
+    }
+    .delbut{
+      background-color: red;
+      color: white;
+      cursor: pointer;
+      border: none;
+      padding: 10px;
+      border-radius: 30px;
+    }
+
+
+
+
+  </style>
+  <script>
+    var arr=[];
+    loopevent();
+    function loopevent()
+    {
+      var htmlcontent=''
+      arr.forEach(function(todoobject,index){ 
+        var {name,duedate}=todoobject;
+        var htmlcode=`
+        <div>${name}</div>
+        <div>${duedate}</div>
+        <button onclick="
+           arr.splice(${index},1)
+           loopevent()
+           " class="delbut">DELETE</button>
+           `;
+        htmlcontent+=htmlcode
+
+      });
+      var divcontent=document.querySelector('.todolistitems').innerHTML=htmlcontent
+    }
+      
+     function todoupdate()
+    {
+       var toin=document.querySelector('.todoinput')
+       var datess=document.querySelector('.dates')
+       var datevalue=datess.value
+
+       var inputval=toin.value
+       arr.push({name:inputval,duedate:datevalue})
+       toin.value =''
+       loopevent()
+     }
+  </script>
+</body> 
